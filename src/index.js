@@ -2,7 +2,7 @@ var renderPages = function (pageName) {
     fetch("pages/".concat(pageName, ".html"))
         .then(function (resp) {
         if (!resp.ok) {
-            throw new Error('Erro ao carregar a página');
+            throw new Error("Erro ao carregar a página");
         }
         return resp.text();
     })
@@ -10,7 +10,6 @@ var renderPages = function (pageName) {
         var rootElem = document.getElementById("root");
         if (rootElem) {
             rootElem.innerHTML = html;
-            // Adicione um manipulador de eventos ao formulário
             var formStart = document.getElementById("form-start");
             if (formStart) {
                 formStart.addEventListener("submit", function (event) {
@@ -24,35 +23,33 @@ var renderPages = function (pageName) {
         }
     })
         .catch(function (error) {
-        console.error('Erro durante a requisição fetch:', error);
+        console.error("Erro durante a requisição fetch:", error);
     });
 };
 renderPages("start");
 function armazenarNome() {
-    var nomeUsuarioInput = document.getElementById('input-name');
-    if (nomeUsuarioInput && nomeUsuarioInput.value.trim() !== '') {
+    var nomeUsuarioInput = document.getElementById("input-name");
+    if (nomeUsuarioInput && nomeUsuarioInput.value.trim() !== "") {
         var nomeUsuario = nomeUsuarioInput.value;
-        localStorage.setItem('usuario', nomeUsuario);
-        // Exiba uma mensagem diretamente na página ou use uma abordagem mais amigável
-        var mensagem_1 = criarMensagem('Nome armazenado com sucesso!');
+        localStorage.setItem("usuario", nomeUsuario);
+        var mensagem_1 = criarMensagem("Nome armazenado com sucesso!");
         document.body.appendChild(mensagem_1);
-        // Adiciona ouvinte de evento de clique à mensagem
-        mensagem_1.addEventListener('click', function () {
-            mensagem_1.remove(); // Remove a mensagem quando ela é clicada
+        mensagem_1.addEventListener("click", function () {
+            mensagem_1.remove();
         });
+        renderPages("quiz");
     }
     else {
-        var mensagem_2 = criarMensagem('Por favor, digite seu nome antes de começar.');
+        var mensagem_2 = criarMensagem("Por favor, digite seu nome antes de começar.");
         document.body.appendChild(mensagem_2);
-        // Adiciona ouvinte de evento de clique à mensagem
-        mensagem_2.addEventListener('click', function () {
-            mensagem_2.remove(); // Remove a mensagem quando ela é clicada
+        mensagem_2.addEventListener("click", function () {
+            mensagem_2.remove();
         });
     }
 }
 function criarMensagem(texto) {
-    var mensagem = document.createElement('div');
+    var mensagem = document.createElement("div");
     mensagem.textContent = texto;
-    mensagem.classList.add('alert-message'); // Adicione classes de estilo conforme necessário
+    mensagem.classList.add("alert-message");
     return mensagem;
 }
