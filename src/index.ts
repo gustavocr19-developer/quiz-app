@@ -45,7 +45,7 @@ function armazenarNome(): void {
   if (nomeUsuarioInput && nomeUsuarioInput.value.trim() !== "") {
     const nomeUsuario = nomeUsuarioInput.value;
 
-    localStorage.setItem("usuario", nomeUsuario);
+    localStorage.setItem("Player", nomeUsuario);
 
     const mensagem = criarMensagem("Nome armazenado com sucesso!");
 

@@ -24,6 +24,66 @@
         "Todas as opções"
       ],
       "correct": 3
+    },
+    {
+      "question": "Quais são algumas das estruturas JavaScript?",
+      "options": [
+        "LaçoTemporal",
+        "VariávelInvisível",
+        "React",
+        "MóduloTelepático"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "Quais são as formas de definir uma variável em JavaScript?",
+      "options": [
+        "BOM é um brinquedo virtual maluco.",
+        "BOM é o Modelo de Objeto do Navegador onde os usuários podem interagir com os navegadores",
+        "Uma interpretação fictícia que sugere que o BOM é uma bússola virtual com características magnéticas e orientação ortogonal.",
+        "Uma confusão que associa o BOM a biscoitos operacionais móveis em vez de Browser Object Model"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Quais são as caixas pop-up disponíveis em JavaScript?",
+      "options": [
+        "Uma caixa pop-up que exibe surpresas aleatórias em vez de mensagens.",
+        "Uma caixa pop-up com efeitos de foguete para animar as mensagens.",
+        "E uma caixa que permanece invisível, desafiando a detecção pelos usuários.",
+        "As caixas pop-up disponíveis em JavaScript são Alert Box, Confirm Box e Prompt Box."
+      ],
+      "correct": 3
+    },
+    {
+      "question": "O que este operador faz (==)",
+      "options": [
+        "Faz com que as expressões dancem juntas, mas sem verificar a igualdade.",
+        "Compara valores com coerção de tipo, retornando true se iguais, false caso contrário.",
+        "Usa um olho mágico para determinar a igualdade, sem considerar os valores reais.",
+        "Invoca poderes mágicos para decidir se as expressões são misteriosamente iguais"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Qual é a diferença entre Indefinido e Nulo em JavaScript? ",
+      "options": [
+        "Indefinido é quando você se esquece de definir algo, e Nulo é quando você não sabe o que é.",
+        "Indefinido é como um vácuo no espaço de variáveis, enquanto Nulo é como uma gaveta vazia.",
+        "Indefinido é como um ponto de interrogação em JavaScript, e Nulo é como uma resposta vazia.",
+        "Em JavaScript, undefined significa que uma variável foi declarada, mas não foi atribuída a um valor, enquanto null é um valor atribuível que representa a ausência de qualquer valor ou objeto."
+      ],
+      "correct": 3
+    },
+    {
+      "question": "Qual é a diferença entre Indefinido e Não Declarado em JavaScript?",
+      "options": [
+        "Indefinido é quando existe, mas não tem valor. Não Declarado é quando nem existe.",
+        "Indefinido é quando você esquece o que a variável deveria ser, e Não Declarado é quando você nem se lembra de criar a variável.",
+        "Indefinido é um mistério, Não Declarado é como algo que nem sequer existe.",
+        "Indefinido é quando você perdeu a trilha da variável, e Não Declarado é quando nem mesmo colocou a trilha."
+      ],
+      "correct": 0
     }
   ]
 }

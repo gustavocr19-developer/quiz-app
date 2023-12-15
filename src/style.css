@@ -103,7 +103,7 @@ form > input {
 /* QUIZ CSS */
 .question-number {
   font-size: 1rem;
-  color: var(--grey-dark);
+  color: var(--grey-background);
 }
 
 .question-container {
@@ -234,6 +234,6 @@ form > input {
   cursor: pointer;
 }
 
-.alert-message{
- color: white;
+.alert-message {
+  color: white;
 }
