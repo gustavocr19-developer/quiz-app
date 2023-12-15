@@ -31,7 +31,7 @@ function armazenarNome() {
     var nomeUsuarioInput = document.getElementById("input-name");
     if (nomeUsuarioInput && nomeUsuarioInput.value.trim() !== "") {
         var nomeUsuario = nomeUsuarioInput.value;
-        localStorage.setItem("usuario", nomeUsuario);
+        localStorage.setItem("Player", nomeUsuario);
         var mensagem_1 = criarMensagem("Nome armazenado com sucesso!");
         document.body.appendChild(mensagem_1);
         mensagem_1.addEventListener("click", function () {
@@ -53,3 +53,8 @@ function criarMensagem(texto) {
     mensagem.classList.add("alert-message");
     return mensagem;
 }
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("questions.json")
+        .then(function (response) { return response.json(); })
+        .then(function (data) { });
+});
