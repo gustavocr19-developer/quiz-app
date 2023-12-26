@@ -24,6 +24,56 @@
         "Todas as opções"
       ],
       "correct": 3
+    },
+    {
+      "question": "O que 1 + 2 + 4 retorna?",
+      "options": ["124", "7", "NaN", "Undefined"],
+      "correct": 1
+    },
+    {
+      "question": "Qual o tipo de operador esperado no comando: console.log(typeof false)?",
+      "options": ["number", "string", "Undefined", "boolean"],
+      "correct": 3
+    },
+    {
+      "question": "Qual a forma correta de declaração para um array em typescript?",
+      "options": [
+        "let values: number[0] = [10, 20, 30]",
+        "let person: number = 41",
+        "Array<number> = [1, 2, 3]",
+        "const dog : age = 6 years"
+      ],
+      "correct": 2
+    },
+    {
+      "question": "O que representa VOID quando utilizado como um tipo em uma função?",
+      "options": [
+        "Não há operação a ser realizada",
+        "Ausência de um tipo para a variavel",
+        "Permite que a variavél seja ignorada pela compilador",
+        "Permite a declaração de mais tipos de variáveis"
+      ],
+      "correct": 1
+    },
+    {
+      "question": "Qual opção indica um tipo primitivo em TS",
+      "options": ["undefined", "any", "enums", "boolean"],
+      "correct": 3
+    },
+    {
+      "question": "Qual opção indica um tipo especial em TS",
+      "options": ["string", "number", "any", "boolean"],
+      "correct": 2
+    },
+    {
+      "question": "Qual a função de Enums em TS",
+      "options": [
+        "Representa um tipo de variável primitiva",
+        "Define constantes nomeadas baseadas em numeros ou strings",
+        "Indica um superclasse que pode ser extendida",
+        "Não existe em TS somente em JS"
+      ],
+      "correct": 1
     }
   ]
 }
