@@ -17,6 +17,9 @@ var renderPages = function (pageName) {
                     armazenarNome();
                 });
             }
+            if (pageName === "quiz") {
+                carregarPergunta();
+            }
         }
         else {
             console.error('Elemento com ID "root" não encontrado.');
@@ -31,7 +34,7 @@ function armazenarNome() {
     var nomeUsuarioInput = document.getElementById("input-name");
     if (nomeUsuarioInput && nomeUsuarioInput.value.trim() !== "") {
         var nomeUsuario = nomeUsuarioInput.value;
-        localStorage.setItem("Player", nomeUsuario);
+        localStorage.setItem("usuario", nomeUsuario);
         var mensagem_1 = criarMensagem("Nome armazenado com sucesso!");
         document.body.appendChild(mensagem_1);
         mensagem_1.addEventListener("click", function () {
@@ -53,8 +56,71 @@ function criarMensagem(texto) {
     mensagem.classList.add("alert-message");
     return mensagem;
 }
-document.addEventListener("DOMContentLoaded", function () {
+function carregarPergunta() {
     fetch("questions.json")
-        .then(function (response) { return response.json(); })
-        .then(function (data) { });
-});
+        .then(function (resp) {
+        if (!resp.ok) {
+            throw new Error("Erro na requisição fetch.");
+        }
+        return resp.json();
+    })
+        .then(function (data) {
+        console.log("Dados do JSON recebidos:", data);
+        atualizarHTML(data.questions[0]);
+    })
+        .catch(function (error) {
+        console.error("Erro durante a requisição fetch:", error);
+    });
+}
+function atualizarHTML(pergunta) {
+    var questionNumberElement = document.querySelector(".question-number");
+    var questionContainerElement = document.querySelector(".question-container");
+    var btnListElement = document.querySelector(".btn-list");
+    var nextBtnElement = document.getElementById("next-btn");
+    if (questionNumberElement && questionContainerElement && btnListElement && nextBtnElement) {
+        questionNumberElement.textContent = "1/10";
+        questionContainerElement.textContent = pergunta.question;
+        btnListElement.innerHTML = "";
+        pergunta.options.forEach(function (option, index) {
+            var button = document.createElement("button");
+            button.className = "btn-answer";
+            button.textContent = option;
+            btnListElement.appendChild(button);
+            button.addEventListener("click", function () { return checkAnswer(index); });
+        });
+        nextBtnElement.classList.remove("hide");
+        nextBtnElement.addEventListener("click", function () {
+            if (selectedOptionIndex !== null) {
+                var perguntaAtual = pergunta;
+                verificarResposta(selectedOptionIndex, perguntaAtual.correct);
+            }
+            else {
+                alert("Por favor, selecione uma opção antes de responder.");
+            }
+        });
+    }
+}
+function verificarResposta(selectedIndex, correctIndex) {
+    if (selectedIndex === correctIndex) {
+        alert("Resposta correta!");
+        renderPages("leaderboard");
+    }
+    else {
+        alert("Resposta incorreta");
+        renderPages("leaderboard");
+    }
+}
+var selectedOptionIndex = null;
+function checkAnswer(index) {
+    if (selectedOptionIndex !== null) {
+        var prevSelectedOption = document.querySelector(".btn-answer[data-index=\"".concat(selectedOptionIndex, "\"]"));
+        if (prevSelectedOption) {
+            prevSelectedOption.style.backgroundColor = "";
+        }
+    }
+    var selectedOption = document.querySelector(".btn-answer[data-index=\"".concat(index, "\"]"));
+    if (selectedOption) {
+        selectedOption.style.backgroundColor = "black";
+    }
+    selectedOptionIndex = index;
+}
