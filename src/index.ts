@@ -22,8 +22,22 @@ const renderPages = (pageName: string): void => {
             armazenarNome();
           });
         }
+
         if (pageName === "quiz") {
           carregarPergunta();
+          console.log("A página quiz está pronta para ser usada!");
+        } else if (pageName === "leaderboard") {
+          
+          console.log("A página leaderboard está pronta para ser usada!");
+          const novoJogo = document.querySelector(".btn-gold");
+
+// Adicionando um ouvinte de evento ao botão "Novo Jogo"
+if (novoJogo) {
+  novoJogo.addEventListener("click", () => {
+    // Ao clicar no botão "Novo Jogo", retorna à página "start"
+    renderPages("start");
+  });
+}
         }
       } else {
         console.error('Elemento com ID "root" não encontrado.');
@@ -34,37 +48,22 @@ const renderPages = (pageName: string): void => {
     });
 };
 
+// Função para exibir mensagens
 renderPages("start");
 
 function armazenarNome(): void {
-  const nomeUsuarioInput = document.getElementById(
-    "input-name"
-  ) as HTMLInputElement | null;
+  const nomeUsuarioInput = document.getElementById("input-name") as HTMLInputElement | null;
 
   if (nomeUsuarioInput && nomeUsuarioInput.value.trim() !== "") {
     const nomeUsuario = nomeUsuarioInput.value;
     localStorage.setItem("usuario", nomeUsuario);
-
-    const mensagem = criarMensagem("Nome armazenado com sucesso!");
-    document.body.appendChild(mensagem);
-
-    mensagem.addEventListener("click", () => {
-      mensagem.remove();
-    });
-
+    console.log("Nome armazenado com sucesso!");
     renderPages("quiz");
   } else {
-    const mensagem = criarMensagem(
-      "Por favor, digite seu nome antes de começar."
-    );
-
-    document.body.appendChild(mensagem);
-
-    mensagem.addEventListener("click", () => {
-      mensagem.remove();
-    });
-  }
+    alert("Por favor, digite seu nome antes de começar.");
+    }
 }
+
 
 function criarMensagem(texto: string): HTMLDivElement {
   const mensagem = document.createElement("div");
@@ -113,14 +112,23 @@ function atualizarHTML(pergunta: Question): void {
       button.textContent = option;
       btnListElement.appendChild(button);
 
-      button.addEventListener("click", () => checkAnswer(index));
+      button.addEventListener("click", () => {
+        checkAnswer(index);
+
+        // Remove a cor verde de todos os botões
+        btnListElement.querySelectorAll(".btn-answer").forEach((btn) => {
+          const buttonElement = btn as HTMLElement;
+          buttonElement.style.backgroundColor = "";
+        });
+        button.style.backgroundColor = "#B4B7FA";
+        
+      });  
     });
 
     nextBtnElement.classList.remove("hide");
     nextBtnElement.addEventListener("click", () => {
       if (selectedOptionIndex !== null) {
         const perguntaAtual = pergunta;
-
         verificarResposta(selectedOptionIndex, perguntaAtual.correct);
       } else {
         alert("Por favor, selecione uma opção antes de responder.");
@@ -128,16 +136,21 @@ function atualizarHTML(pergunta: Question): void {
     });
   }
 }
+
+
 function verificarResposta(selectedIndex: number, correctIndex: number): void {
+ 
   if (selectedIndex === correctIndex) {
     alert("Resposta correta!");
-    renderPages("leaderboard")
-    
+   
   } else {
     alert("Resposta incorreta");
-    renderPages("leaderboard")
+    
   }
+
+  renderPages("leaderboard");
 }
+
 let selectedOptionIndex: number | null = null;
 
 
@@ -161,3 +174,5 @@ if (selectedOption) {
 }
   selectedOptionIndex = index;
 }
+
+

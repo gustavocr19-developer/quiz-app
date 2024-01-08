@@ -19,6 +19,18 @@ var renderPages = function (pageName) {
             }
             if (pageName === "quiz") {
                 carregarPergunta();
+                console.log("A página quiz está pronta para ser usada!");
+            }
+            else if (pageName === "leaderboard") {
+                console.log("A página leaderboard está pronta para ser usada!");
+                var novoJogo = document.querySelector(".btn-gold");
+                // Adicionando um ouvinte de evento ao botão "Novo Jogo"
+                if (novoJogo) {
+                    novoJogo.addEventListener("click", function () {
+                        // Ao clicar no botão "Novo Jogo", retorna à página "start"
+                        renderPages("start");
+                    });
+                }
             }
         }
         else {
@@ -29,25 +41,18 @@ var renderPages = function (pageName) {
         console.error("Erro durante a requisição fetch:", error);
     });
 };
+// Função para exibir mensagens
 renderPages("start");
 function armazenarNome() {
     var nomeUsuarioInput = document.getElementById("input-name");
     if (nomeUsuarioInput && nomeUsuarioInput.value.trim() !== "") {
         var nomeUsuario = nomeUsuarioInput.value;
         localStorage.setItem("usuario", nomeUsuario);
-        var mensagem_1 = criarMensagem("Nome armazenado com sucesso!");
-        document.body.appendChild(mensagem_1);
-        mensagem_1.addEventListener("click", function () {
-            mensagem_1.remove();
-        });
+        console.log("Nome armazenado com sucesso!");
         renderPages("quiz");
     }
     else {
-        var mensagem_2 = criarMensagem("Por favor, digite seu nome antes de começar.");
-        document.body.appendChild(mensagem_2);
-        mensagem_2.addEventListener("click", function () {
-            mensagem_2.remove();
-        });
+        alert("Por favor, digite seu nome antes de começar.");
     }
 }
 function criarMensagem(texto) {
@@ -86,7 +91,15 @@ function atualizarHTML(pergunta) {
             button.className = "btn-answer";
             button.textContent = option;
             btnListElement.appendChild(button);
-            button.addEventListener("click", function () { return checkAnswer(index); });
+            button.addEventListener("click", function () {
+                checkAnswer(index);
+                // Remove a cor verde de todos os botões
+                btnListElement.querySelectorAll(".btn-answer").forEach(function (btn) {
+                    var buttonElement = btn;
+                    buttonElement.style.backgroundColor = "";
+                });
+                button.style.backgroundColor = "#B4B7FA";
+            });
         });
         nextBtnElement.classList.remove("hide");
         nextBtnElement.addEventListener("click", function () {
@@ -103,12 +116,11 @@ function atualizarHTML(pergunta) {
 function verificarResposta(selectedIndex, correctIndex) {
     if (selectedIndex === correctIndex) {
         alert("Resposta correta!");
-        renderPages("leaderboard");
     }
     else {
         alert("Resposta incorreta");
-        renderPages("leaderboard");
     }
+    renderPages("leaderboard");
 }
 var selectedOptionIndex = null;
 function checkAnswer(index) {
