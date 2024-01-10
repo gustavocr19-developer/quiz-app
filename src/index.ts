@@ -173,6 +173,9 @@ if (selectedOption) {
   selectedOption.style.backgroundColor = "black";
 }
   selectedOptionIndex = index;
+
+
+  
 }
 
 
