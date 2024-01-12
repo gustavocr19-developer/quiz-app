@@ -27,17 +27,46 @@ const renderPages = (pageName: string): void => {
           carregarPergunta();
           console.log("A página quiz está pronta para ser usada!");
         } else if (pageName === "leaderboard") {
-          
           console.log("A página leaderboard está pronta para ser usada!");
-          const novoJogo = document.querySelector(".btn-gold");
+          const leaderboardContainer = document.querySelector(".container-podium");
 
-// Adicionando um ouvinte de evento ao botão "Novo Jogo"
-if (novoJogo) {
-  novoJogo.addEventListener("click", () => {
-    // Ao clicar no botão "Novo Jogo", retorna à página "start"
-    renderPages("start");
-  });
+  if (leaderboardContainer) {
+    // Limpar o conteúdo atual
+    leaderboardContainer.innerHTML = "";
+
+    // Obter o nome do usuário do histórico local
+    const nomeUsuario = localStorage.getItem("usuario");
+
+    // Verificar se há um nome de usuário
+    if (nomeUsuario) {
+      // Criar um elemento para o usuário no primeiro lugar
+      const firstPlaceItem = document.createElement("div");
+      firstPlaceItem.className = "podium-item";
+      firstPlaceItem.innerHTML = `
+        <div class="podium-rounded first-podium">${nomeUsuario.charAt(0).toUpperCase()}</div>
+        <div>${nomeUsuario}</div>
+        <div>1/1</div>
+      `;
+
+      // Adicionar o elemento ao container-podium
+      leaderboardContainer.appendChild(firstPlaceItem);
+    } else {
+      console.error("Nome de usuário não encontrado no histórico local.");
+    }
+  } else {
+    console.error('Elemento com classe "container-podium" não encontrado.');
+  }
 }
+const novoJogo = document.querySelector(".btn-gold");
+        
+          // Adicionando um ouvinte de evento ao botão "Novo Jogo"
+          if (novoJogo) {
+            novoJogo.addEventListener("click", () => {
+              // Ao clicar no botão "Novo Jogo", retorna à página "start"
+              renderPages("start");
+            });
+          
+   
         }
       } else {
         console.error('Elemento com ID "root" não encontrado.');
@@ -51,6 +80,7 @@ if (novoJogo) {
 // Função para exibir mensagens
 renderPages("start");
 
+ 
 function armazenarNome(): void {
   const nomeUsuarioInput = document.getElementById("input-name") as HTMLInputElement | null;
 
@@ -62,17 +92,8 @@ function armazenarNome(): void {
   } else {
     alert("Por favor, digite seu nome antes de começar.");
     }
-}
+  }
 
-
-function criarMensagem(texto: string): HTMLDivElement {
-  const mensagem = document.createElement("div");
-
-  mensagem.textContent = texto;
-  mensagem.classList.add("alert-message");
-
-  return mensagem;
-}
 
 function carregarPergunta(): void {
   fetch("questions.json")
@@ -90,6 +111,34 @@ function carregarPergunta(): void {
       console.error("Erro durante a requisição fetch:", error);
     });
 }
+function verificarResposta(selectedIndex: number, correctIndex: number): void {
+  const pontosPorRespostaCorreta = 1; // Defina a quantidade de pontos por resposta correta
+
+  if (selectedIndex === correctIndex) {
+    alert("Resposta correta!");
+
+    // Adiciona pontos ao usuário
+    adicionarPontos(pontosPorRespostaCorreta);
+  } else {
+    alert("Resposta incorreta");
+  }
+
+  renderPages("leaderboard");
+}
+
+function adicionarPontos(pontos: number): void {
+  // Obtém a pontuação atual do usuário do localStorage ou inicializa com 0 se não existir
+  const pontuacaoAtual = parseInt(localStorage.getItem("pontuacao") || "0", 10);
+
+  // Adiciona os pontos
+  const novaPontuacao = pontuacaoAtual + pontos;
+
+  // Armazena a nova pontuação no localStorage
+  localStorage.setItem("pontuacao", novaPontuacao.toString());
+}
+
+let selectedOptionIndex: number | null = null;
+
 interface Question {
   question: string;
   options: string[];
@@ -136,24 +185,6 @@ function atualizarHTML(pergunta: Question): void {
     });
   }
 }
-
-
-function verificarResposta(selectedIndex: number, correctIndex: number): void {
- 
-  if (selectedIndex === correctIndex) {
-    alert("Resposta correta!");
-   
-  } else {
-    alert("Resposta incorreta");
-    
-  }
-
-  renderPages("leaderboard");
-}
-
-let selectedOptionIndex: number | null = null;
-
-
 function checkAnswer(index: number): void {
   if (selectedOptionIndex !== null) {
     const prevSelectedOption = document.querySelector(
@@ -164,18 +195,8 @@ function checkAnswer(index: number): void {
       prevSelectedOption.style.backgroundColor = ""; 
     }
   }
-   
-const selectedOption = document.querySelector(
-  `.btn-answer[data-index="${index}"]`
-) as HTMLElement | null;
-
-if (selectedOption) {
-  selectedOption.style.backgroundColor = "black";
+   selectedOptionIndex = index;
 }
-  selectedOptionIndex = index;
 
-
-  
-}
 
 
