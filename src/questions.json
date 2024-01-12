@@ -1,14 +1,14 @@
 {
   "questions": [
     {
-      "question": "Qual a diferença entre = , == e === ?",
+      "question": "Quais são as caixas pop-up disponíveis em JavaScript?",
       "options": [
-        "== verifica a igualdade do valor, enquanto === verifica valor e tipo de variável",
-        "=== verifica a igualdade do valor, enquanto == verifica valor e tipo de variável",
-        "== verifica o total, enquanto == verifica o tipo da variável",
-        "Nenhuma"
+        "Uma caixa pop-up que exibe surpresas aleatórias em vez de mensagens.",
+        "Uma caixa pop-up com efeitos de foguete para animar as mensagens.",
+        "E uma caixa que permanece invisível, desafiando a detecção pelos usuários.",
+        "As caixas pop-up disponíveis em JavaScript são Alert Box, Confirm Box e Prompt Box."
       ],
-      "correct": 0
+      "correct": 3
     }
   ]
 }
